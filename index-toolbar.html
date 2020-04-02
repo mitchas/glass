@@ -7,7 +7,7 @@
         <link href="styles/vendor/reset.css" rel="stylesheet">
         <link href="styles/app.css" rel="stylesheet">
         <script type="text/javascript" src="scripts/jquery.js"></script>
-        <script type="text/javascript" src="scripts/scripts.js"></script>
+        <script type="text/javascript" src="scripts/toolbar-script.js"></script>
 
     </head>
 <body>
@@ -20,7 +20,6 @@
             <div class="close" onclick="closeWindow()"><img src="assets/ui/close.png" /></div>
         </div>
     </div>
-
     <div class="app-controls">
         <form id="addressBar">
             <button onclick="browserBack()"><img src="assets/ui/back.png" /></button>
@@ -29,10 +28,6 @@
         <input type="range" value="0.95" min="0.2" max="1" step="0.05" id="transparencyRange"/>
         <button onclick="enableClickThrough()" id="clickthroughButton"><img src="assets/ui/eye.png"/></button>
     </div>
-
-    <webview id="browserView" src="http://mitch.works/apps/glass/landing" style="display:inline-flex; width:100%;"></webview>
-
-
 
     <script>
         // You can also require other files to run in this process

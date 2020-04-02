@@ -1,4 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
 .window-chrome {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -131,8 +141,6 @@ body {
   display: block;
   width: 100%;
   height: 100%;
-  height: calc(100vh - 78px) !important;
-  margin-top: 32px;
   z-index: 5;
   background-color: white;
 }
@@ -254,6 +262,10 @@ body {
   transition: 0.2s;
   opacity: 1;
   margin-left: 35px;
+}
+
+.set-background-color {
+  background-color: #E72525;
 }
 
 .app-controls #clickthroughButton:hover {
