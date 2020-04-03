@@ -29,6 +29,7 @@ function createToolbarWindow(){
   mainWindowToolbar.setMinimumSize(mainWindowToolbar.getMinimumSize()[0], mainWindowToolbar.getBounds().height)
 
   mainWindowToolbar.setPosition(mainWindowToolbar.getBounds().x, mainWindowToolbar.getBounds().y - (600/2))
+  mainWindowToolbar.__id = 'mainWindowToolbar'
 
 
   // and load the index.html of the app.
@@ -160,7 +161,7 @@ function getNotFocusedWindow() {
 }
 
 function isToolbar(browserWindow){
-  return browserWindow.getMaximumSize()[1] === toolbarHeight
+  return browserWindow.__id === 'mainWindowToolbar'
 }
 
 // This method will be called when Electron has finished
