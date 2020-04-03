@@ -64,6 +64,7 @@ function createViewWindow(height){
   }))
 
   mainWindowView.setAlwaysOnTop(true)
+  mainWindowView.__id = 'mainWindowView'
   // mainWindowView.setSkipTaskbar(skipTaskbar)
   // mainWindowView.setIgnoreMouseEvents(true);
 
