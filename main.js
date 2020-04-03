@@ -4,6 +4,7 @@
 const electron = require('electron')
 // Module to control application life.
 const app = electron.app
+const ipcMain = electron.ipcMain
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
@@ -135,7 +136,11 @@ function handleMoveEvent(event){
   }
 }
 
+let positioningTimeout = null
+
 function executePositioning(focusedWindow, eventBounds, notFocusedWindow){
+  clearTimeout(positioningTimeout)
+  notFocusedWindow.webContents.send('css', {key: 'display', value: 'none'});
   let notFocusedWindowBounds = getNotFocusedWindow().getBounds()
   let newY
   if(isToolbar(focusedWindow)){
@@ -143,7 +148,10 @@ function executePositioning(focusedWindow, eventBounds, notFocusedWindow){
   } else {
     newY = notFocusedWindowBounds.y
   }
-  notFocusedWindow.setPosition(eventBounds.x, newY)
+  positioningTimeout = setTimeout(() => {
+    notFocusedWindow.setPosition(eventBounds.x, newY)
+    notFocusedWindow.webContents.send('css', {key: 'display', value: ''});
+  }, 150);
 }
 
 function getNotFocusedWindow() {

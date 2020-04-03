@@ -1,6 +1,6 @@
 global.$ = $;
 
-const {remote} = require('electron');
+const {remote, ipcRenderer} = require('electron');
 const {Menu, BrowserWindow, MenuItem, shell} = remote;
 const fs = require("fs");
 
@@ -12,6 +12,10 @@ $(document).ready(function () {
   });
 
 });
+
+ipcRenderer.on('css', (event, data) => {
+  $("html").css(data.key, data.value)
+})
 
 function changeOpacity(opacity) {
   $("body").css('opacity', opacity);
