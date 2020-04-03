@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Glass Browser</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="styles/vendor/reset.css" rel="stylesheet">
+        <link href="styles/app.css" rel="stylesheet">
+        <script type="text/javascript" src="scripts/jquery.js"></script>
+        <script type="text/javascript" src="scripts/view-script.js"></script>
+
+    </head>
+<body>
+
+    <webview id="browserView" src="http://mitch.works/apps/glass/landing" style="display:inline-flex; width:100%;"></webview>
+
+    <script>
+        // You can also require other files to run in this process
+        require('./renderer.js')
+    </script>
+</body>
+</html>
