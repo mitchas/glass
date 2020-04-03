@@ -47,6 +47,7 @@ function createToolbarWindow(){
   // mainWindowToolbar.webContents.openDevTools()
 
   mainWindowToolbar.on('close', function () {
+    clearTimeout(positioningTimeout)
     app.quit()
   })
 
@@ -66,6 +67,7 @@ function createViewWindow(height){
 
   mainWindowView.setAlwaysOnTop(true)
   mainWindowView.__id = 'mainWindowView'
+  lastHeight = mainWindowView.getBounds().height
   // mainWindowView.setSkipTaskbar(skipTaskbar)
   // mainWindowView.setIgnoreMouseEvents(true);
 
@@ -104,6 +106,8 @@ function removeListener(brWindow, name){
   }
 }
 
+let lastHeight = 0
+
 function handleResizeEvent(event){
   let name = 'resize'
   let focusedWindow = BrowserWindow.getFocusedWindow();
@@ -113,7 +117,13 @@ function handleResizeEvent(event){
 
   try {
     // and load the index.html of the app.
-    notFocusedWindow.setSize(eventBounds.width, notFocusedWindow.getBounds().height)
+    const {height} = notFocusedWindow.getBounds()
+    if (height- 3 > lastHeight || height + 3 < lastHeight) {
+      notFocusedWindow.setSize(eventBounds.width, notFocusedWindow.getBounds().height)
+      lastHeight = notFocusedWindow.getBounds().height
+    } else {
+      notFocusedWindow.setSize(eventBounds.width, lastHeight)
+    }
     executePositioning(focusedWindow, eventBounds, notFocusedWindow)
     addListener(notFocusedWindow, name)
   } catch (e) {
@@ -121,16 +131,19 @@ function handleResizeEvent(event){
   }
 }
 
+let moveTimeout = null
+
 function handleMoveEvent(event){
   let name = 'move'
   let focusedWindow = BrowserWindow.getFocusedWindow();
   let eventBounds = focusedWindow.getBounds()
   let notFocusedWindow = getNotFocusedWindow();
+  clearTimeout(moveTimeout)
   removeListener(notFocusedWindow, name)
 
   try {
     executePositioning(focusedWindow, eventBounds, notFocusedWindow)
-    addListener(notFocusedWindow, name)
+    moveTimeout = setTimeout(() => addListener(notFocusedWindow, name), 10)
   } catch (e) {
     console.log("Error " + e.message);
   }
